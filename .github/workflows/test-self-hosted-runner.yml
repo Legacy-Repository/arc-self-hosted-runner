@@ -4,7 +4,6 @@ on: [push, pull_request]
 
 permissions:
   contents: read
-  metadata: write
   packages: write # Required to comment with the plan output on PRs
 
 jobs:
