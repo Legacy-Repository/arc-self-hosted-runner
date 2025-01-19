@@ -1,7 +1,3 @@
-name: Test Self-Hosted Runner with Docker Cache
-
-on: [push, pull_request]
-
 jobs:
   test:
     runs-on: arc-dind-self-runner
@@ -22,10 +18,11 @@ jobs:
 
       - name: Build and push Docker image
         run: |
+          REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           docker buildx build \
             --cache-from type=local,src=/mnt/docker-cache \
             --cache-to type=local,dest=/mnt/docker-cache \
-            --tag ghcr.io/${{ github.repository }}/my-app:latest \
+            --tag ghcr.io/${REPO_NAME}/my-app:latest \
             --push .
 
       - name: Run a simple command
