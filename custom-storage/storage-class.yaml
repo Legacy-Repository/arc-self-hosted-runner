@@ -1,0 +1,16 @@
+# dynamic provision the storage on demand when a claim is made
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: gh-runner-storage-class
+# provisioner: kubernetes.io/gce-pd
+# parameters:
+#   type: pd-ssd
+#   replication-type: none
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gh-runner-storage-class
+provisioner: kubernetes.io/no-provisioner # indicates that this StorageClass does not support automatic provisioning
+volumeBindingMode: WaitForFirstConsumer

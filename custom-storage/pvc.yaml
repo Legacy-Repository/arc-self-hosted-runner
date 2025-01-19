@@ -1,0 +1,13 @@
+# PVC for the storage class
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gh-runner-storage-pvc
+  namespace: arc-runners
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gh-runner-storage-class
+  resources:
+    requests:
+      storage: 500Mi
