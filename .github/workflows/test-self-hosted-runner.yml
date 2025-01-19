@@ -2,11 +2,14 @@ name: Test Self-Hosted Runner with Docker Cache
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+  metadata: write
+  packages: write # Required to comment with the plan output on PRs
+
 jobs:
   test:
     runs-on: arc-dind-self-runner
-    permissions:
-      packages: write
 
     steps:
       - name: Checkout repository
