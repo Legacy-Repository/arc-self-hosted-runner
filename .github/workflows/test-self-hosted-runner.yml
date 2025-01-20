@@ -29,8 +29,6 @@ jobs:
         run: |
           REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           docker buildx build \
-            --cache-from type=local,src=/mnt/docker-cache \
-            --cache-to type=local,dest=/mnt/docker-cache \
             --file ./Dockerfile \
             --tag ghcr.io/${REPO_NAME}/my-app:latest \
             --push .
