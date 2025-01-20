@@ -154,3 +154,20 @@ oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
 ```cmd
 minikube stop -p arc
 ```
+
+## Check the build cache in the node
+
+```cmd
+minikube ssh -p arc
+```
+
+Navigate to the cache folder
+
+```cmd
+cd /mnt/docker-cache/
+ls -lh
+```
+
+-lh give the laout, size and headings
+
+Then check the blobs size
