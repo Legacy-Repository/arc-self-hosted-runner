@@ -14,6 +14,9 @@ jobs:
       attestations: write
       id-token: write
 
+    env:
+      REPO_NAME: $(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -33,7 +36,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          tags: ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')/my-app:latest
+          tags: ghcr.io/${{ env.REPO_NAME }}/my-app:v2
           cache-from: type=local,src=/mnt/docker-cache
           cache-to: type=local,dest=/mnt/docker-cache,mode=max
           push: true
