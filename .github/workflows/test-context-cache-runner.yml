@@ -14,9 +14,6 @@ jobs:
       attestations: write
       id-token: write
 
-    env:
-      REPO_NAME: ${{ github.repository | toLower }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -30,6 +27,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set repository name to lowercase
+        id: repo_name
+        run: echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
