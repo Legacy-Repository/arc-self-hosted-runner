@@ -170,4 +170,4 @@ ls -lh
 
 -lh give the laout, size and headings
 
-Then check the blobs size
+Then check the blobs sizee
