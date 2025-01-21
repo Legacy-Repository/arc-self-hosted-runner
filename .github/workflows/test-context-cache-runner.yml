@@ -15,7 +15,7 @@ jobs:
       id-token: write
 
     env:
-      REPO_NAME: $(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+      REPO_NAME: ${{ github.repository | toLower }}
 
     steps:
       - name: Checkout repository
