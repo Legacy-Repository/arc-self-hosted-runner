@@ -171,3 +171,55 @@ ls -lh
 -lh give the laout, size and headings
 
 Then check the blobs sizee
+
+## Cache Clean Up
+
+This cron job will delete cache files older than 7 days from the /mnt/docker-cache directory. Adjust the schedule and retention period as needed.
+
+```yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cache-cleanup
+  namespace: arc-runners
+spec:
+  schedule: "* * * * *" # Run daily at midnight >> 0 0 * * *
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: cache-cleanup
+              image: busybox
+              command: [
+                  "sh",
+                  "-c",
+                  "echo 'Starting cache cleanup'; \
+                  find /mnt/docker-cache -type f -mmin +60 -print -delete; \
+                  echo 'Cache cleanup completed'",
+                ] #Delete files older than 7 days >>  -mtime +7   older than 60m >> -mmin +60
+              volumeMounts:
+                - name: docker-build-cache
+                  mountPath: /mnt/docker-cache
+          restartPolicy: OnFailure
+          volumes:
+            - name: docker-build-cache
+              persistentVolumeClaim:
+                claimName: gh-runner-storage-pvc
+```
+
+# List the cron jobs
+
+kubectl get cronjob -n arc-runners
+
+# List the jobs created by the cron job
+
+kubectl get jobs -n arc-runners
+
+# List the pods created by the job
+
+kubectl get pods -n arc-runners --selector=job-name=cache-cleanup-<timestamp>
+
+# Check the logs of the pod
+
+kubectl logs -n arc-runners <pod-name>
