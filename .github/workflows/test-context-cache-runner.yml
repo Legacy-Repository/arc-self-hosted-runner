@@ -43,4 +43,4 @@ jobs:
           push: true
 
       - name: Run a simple command
-        run: echo "Hello from self-hosted runner with Docker cache!"
+        run: echo "Hello from self-hosted runner with Docker cachee!"
