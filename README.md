@@ -35,8 +35,8 @@ First create the secret
 ```cmd
 kubectl create secret generic arc-runner-app \
     -n arc-runners \
-    --from-literal=github_app_id=1116585 \
-    --from-literal=github_app_installation_id=59776397 \
+    --from-literal=github_app_id=<app-id> \
+    --from-literal=github_app_installation_id=<inst-id> \
     --from-file=github_app_private_key=./stackdev-arc-controller.2025-01-19.private-key.pem
 ```
 
